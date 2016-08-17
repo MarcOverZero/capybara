@@ -32,7 +32,7 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
     @browser
   end
 
-  def initialize(app, options={})
+  def initialize(app, **options)
     begin
       require 'selenium-webdriver'
       # Fix for selenium-webdriver 3.4.0 which misnamed these
@@ -102,7 +102,7 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
     unwrap_script_result(result)
   end
 
-  def save_screenshot(path, _options={})
+  def save_screenshot(path, **_options)
     browser.save_screenshot(path)
   end
 
@@ -231,7 +231,7 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
     browser.switch_to.window(handle) { yield }
   end
 
-  def accept_modal(_type, options={})
+  def accept_modal(type, **options)
     yield if block_given?
     modal = find_modal(options)
     modal.send_keys options[:with] if options[:with]
@@ -240,7 +240,7 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
     message
   end
 
-  def dismiss_modal(_type, options={})
+  def dismiss_modal(type, **options)
     yield if block_given?
     modal = find_modal(options)
     message = modal.text
@@ -311,7 +311,7 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
     end
   end
 
-  def find_modal(options={})
+  def find_modal(**options)
     # Selenium has its own built in wait (2 seconds)for a modal to show up, so this wait is really the minimum time
     # Actual wait time may be longer than specified
     wait = Selenium::WebDriver::Wait.new(
