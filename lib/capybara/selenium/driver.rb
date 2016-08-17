@@ -297,11 +297,6 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
     (options[:browser].to_s == "firefox") && browser.capabilities.is_a?(Selenium::WebDriver::Remote::W3CCapabilities)
   end
 
-  # @deprecated This method is being removed
-  def browser_initialized?
-    super && !@browser.nil?
-  end
-
   private
 
   def within_given_window(handle)
